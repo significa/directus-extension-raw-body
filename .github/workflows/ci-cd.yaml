@@ -96,6 +96,8 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version-file: '.nvmrc'
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@significa'
 
       - run: npm ci --no-fund --prefer-offline --no-audit
         env:
@@ -106,18 +108,16 @@ jobs:
 
       - run: npm run build
 
-      - name: Publish to NPM registry
-        run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - uses: actions/setup-node@v3
-        with:
-          node-version-file: '.nvmrc'
-          registry-url: 'https://npm.pkg.github.com'
-          scope: '@significa'
-
       - name: Publish to GitHub registry
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+
+      - name: Publish to NPM registry
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
