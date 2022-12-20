@@ -17,6 +17,7 @@
   "scripts": {
     "build": "directus-extension build",
     "dev": "directus-extension build -w --no-minify",
+    "lint": "prettier 'src/**/*.+(ts|tsx|js|jsx|json|yml|yaml|md|mdx)' --check",
     "format": "prettier 'src/**/*.+(ts|tsx|js|jsx|json|yml|yaml|md|mdx)' --write"
   },
   "devDependencies": {
