@@ -3,6 +3,9 @@
   "version": "0.0.1-development",
   "repository": "github:significa/directus-extension-raw-body",
   "author": "Significa <development@significa.co>",
+  "publishConfig": {
+    "access": "public"
+  },
   "keywords": [
     "directus",
     "directus-extension",
