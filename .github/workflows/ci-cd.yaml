@@ -116,6 +116,8 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version-file: '.nvmrc'
+          registry-url: 'https://registry.npmjs.org'
+          scope: '@significa'
 
       - name: Publish to NPM registry
         run: npm publish
