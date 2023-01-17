@@ -8,7 +8,7 @@ Simple Directus extension that sets the serialized request body in the express r
 In your Directus project directory run:
 
 ```sh
-npm install directus-extension-raw-body
+npm install @significa/directus-extension-raw-body
 ```
 
 Create an environment variable `RAW_BODY_ENDPOINT_PATTERN` with a Regex Expression matching the
