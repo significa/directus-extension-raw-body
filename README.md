@@ -20,11 +20,18 @@ Examples:
 # Matches all endpoints for a specific extension
 RAW_BODY_ENDPOINT_PATTERN='^\/sample-extension\/.*$'
 
-# Matches all endpoints (not recommended)
-RAW_BODY_ENDPOINT_PATTERN='*'
+# Matches all endpoints (avoid: you should only set rawBody for custom endpoints)
+RAW_BODY_ENDPOINT_PATTERN='^.*$'
 
 # Matches two routes /hello-world and /sample/path
 RAW_BODY_ENDPOINT_PATTERN='^(\/hello-world|\/sample\/path)$'
+
+# Matches routes with variable input in path. Ex:
+#  - /sample/cats/fifi
+#  - /sample/cats/bob1
+#  - /sample/aaaa/info
+#  - /sample/bbbb/info
+RAW_BODY_ENDPOINT_PATTERN='^(\/sample\/cats\/\D+|\/sample\/[a-z]+\/info)$'
 ```
 
 Restart Directus for the changes to take effect.
@@ -44,7 +51,7 @@ Create a directus endpoint extension:
 
          return res.json({
            status: 'OK',
-           raw_body: req.rawBody,
+           rawBody: req.rawBody,
          })
       }
     )
@@ -52,18 +59,23 @@ Create a directus endpoint extension:
 
  - TS
     ```ts
-    export default (router, _) => {
+    import { NextFunction, Request, Response, Router, } from 'express'
+    import { ApiExtensionContext } from '@directus/shared/types'
+    import { RequestWithRawBody } from "@significa/directus-extension-raw-body";
+  
+    export default (router, extensionContext: ApiExtensionContext) => {
       router.post(
         '/sample',
-        async (req: RequestWithRawBody, res: ServerResponse, _next) => {
-        console.log('Raw body:', req.rawBody)
+        async (req: RequestWithRawBody, res: Response, _next: NextFunction) => {
+          console.log('Raw body:', req.rawBody)
 
-        return res.json({
-          status: 'OK',
-          raw_body: req.rawBody,
-        })
-      }
-    )
+          return res.json({
+            status: 'OK',
+            rawBody: req.rawBody,
+          })
+        }
+      )
+    })
     ```
 
 
