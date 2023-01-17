@@ -25,6 +25,7 @@
   "files": [
     "dist"
   ],
+  "types": "./dist",
   "scripts": {
     "build": "tsc && directus-extension build",
     "dev": "tsc && directus-extension build -w --no-minify",
